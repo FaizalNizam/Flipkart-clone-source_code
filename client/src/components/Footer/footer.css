@@ -1,0 +1,19 @@
+.footer{
+    color:#878787;
+    background-color: #fff;
+    padding: 0 25px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    letter-spacing: 0;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 40px;
+}
+h1{
+    font-size: 17px;
+    font-weight: 700;
+}
+h2{
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}

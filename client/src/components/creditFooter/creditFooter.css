@@ -1,0 +1,12 @@
+.credit{
+    border-top: 1px solid #454d5e;
+    padding: 25px 40%;
+    width: 100%;
+    align-items: center;
+    background-color: #172337;
+    color: white;
+    font-family: Roboto,Arial,sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+
+}
