@@ -1,9 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import {Box,Button,makeStyles,Typography} from '@material-ui/core'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import {Link} from 'react-router-dom'
 import Login from '../loginDialogBox/LoginDialogBox';
+import {loginContext} from '../../context/contextProvider'
+import Profile from './Profile';
 
 
 const useStyle=makeStyles({
@@ -37,6 +39,7 @@ function ButtonHead() {
 
     const classes=useStyle()
     const [open, setOpen] = useState(false)
+    const {account,setAccount} = useContext(loginContext)
 
     function handleClickOpen(){
       setOpen(true);
@@ -44,7 +47,9 @@ function ButtonHead() {
    
     return (
         <Box className={classes.wrapper}>
-            <Button  variant="contained" className={classes.button} onClick={handleClickOpen}>Login</Button>
+            {
+                account?<Profile account={account} setAccount={setAccount}/>:<Button  variant="contained" className={classes.button} onClick={handleClickOpen}>Login</Button>
+            }
 
             <Typography>More</Typography>
             
@@ -55,7 +60,7 @@ function ButtonHead() {
               <Link to='/cart' style={{textDecoration:'none'}}><Typography style={{marginLeft:10,color:'white'}}>Cart</Typography></Link>
             </Box>
 
-            <Login open={open} setOpen={setOpen}/>
+            <Login open={open} setOpen={setOpen} setAccount={setAccount}/>
 
         </Box>
        
@@ -64,3 +69,4 @@ function ButtonHead() {
 }
 
 export default ButtonHead
+ 

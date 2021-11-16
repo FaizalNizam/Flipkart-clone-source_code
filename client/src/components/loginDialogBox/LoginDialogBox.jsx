@@ -1,6 +1,7 @@
 //Login Dialog Box
 import { Dialog, DialogContent,makeStyles,Box, Typography, TextField, Button } from '@material-ui/core'
 import React, { useState } from 'react'
+import { callSignup,callLogin } from '../../service/Api.js'
 
 const useStyles=makeStyles({
     component:{
@@ -69,7 +70,8 @@ const useStyles=makeStyles({
         color: '#2874f0',
         fontWeight: 500,
         textAlign:'center',
-        marginTop:60
+        marginTop:60,
+        cursor:'pointer'
     }
 })
 
@@ -86,8 +88,27 @@ const values={
     }
 }
 
-function Login({open,setOpen}) {
+//empty object for userSignup state
+const signupData={
+    firstname:'',
+    lastname:'',
+    username:'',
+    email:'',
+    password:'',
+    phone:''
+}
+
+//empty object for userLogin state
+const loginData={
+    username:'',
+    password:''
+}
+
+//main function
+function Login({open,setOpen,setAccount}) {
     const [account, setaccount] = useState(values.login)
+    const [userSignup,setUserSignup]= useState(signupData)
+    const [userLogin, setUserLogin] = useState(loginData)
     const classes=useStyles()
 
     function handleClose(){
@@ -99,6 +120,34 @@ function Login({open,setOpen}) {
         setaccount(values.signup)
     }
 
+    //onclick function for signup button
+    const signup=async()=>{
+      let response= await callSignup(userSignup)
+      if(!response) return
+      handleClose()
+      setAccount(userSignup.username)
+    }
+
+    //onclick function for login button
+    const login=async()=>{
+        let response=await callLogin(userLogin)
+        if(!response) return
+        handleClose()
+        setAccount(userLogin.username)
+    }
+
+    //set signup object for api call (object resides in state variable)
+    const inputChange=(e)=>{
+        setUserSignup({...userSignup,[e.target.name]:e.target.value})
+    }
+
+    //set login object for api call (object resides in state variable)
+    const valueChange=(e)=>{
+        setUserLogin({...userLogin,[e.target.name]:e.target.value})
+    }
+
+
+
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent className={classes.component}>
@@ -106,14 +155,14 @@ function Login({open,setOpen}) {
                     <Box className={classes.image}>
                         <Typography variant='h5'>{account.heading}</Typography>
                         <Typography style={{marginTop:'16px', fontSize:'18px',lineHeight:'150%',color:'#dbdbdb'}}>{account.subHeading}</Typography>
-
                     </Box>
+
                    { account.view==='login'?
                      <Box className={classes.login}>
-                        <TextField name='username' label='Enter Email/Mobile number'/>
-                        <TextField name='password' label='Enter Password'/>
+                        <TextField onChange={(e)=>valueChange(e)} name='username' label='Enter Email/Mobile number'/>
+                        <TextField onChange={(e)=>valueChange(e)} name='password' label='Enter Password'/>
                         <Typography className={classes.terms}>By continuing, you agree to Flipkart's <a style={{fontSize: 12,fontWeight: 400, color:'#2874f0',textDecoration:'none'}} href="http://localhost:3000/">Terms of Use</a>  and <a style={{fontSize: 12,fontWeight: 400, color:'#2874f0',textDecoration:'none'}} href="http://localhost:3000/">Privacy Policy.</a> </Typography>
-                        <Button variant='contained' className={classes.loginbtn}>Login</Button>
+                        <Button onClick={()=>login()} variant='contained' className={classes.loginbtn}>Login</Button>
                         <Typography className={classes.or}>OR</Typography>
                         <Button variant='contained' className={classes.requestbtn}>Request OTP</Button>
                         <Typography onClick={()=>toggleAccount()} className={classes.create}>New to Flipkart? Create an account</Typography>
@@ -121,13 +170,13 @@ function Login({open,setOpen}) {
                      </Box>
                      :
                       <Box className={classes.login}>
-                       <TextField name='username' label='Enter First Name'/>
-                       <TextField name='username' label='Enter Last Name'/>
-                       <TextField name='username' label='Enter User Name'/>
-                       <TextField name='username' label='Enter Email'/>
-                       <TextField name='username' label='Enter Password'/>
-                       <TextField name='username' label='Enter Mobile number'/>
-                       <Button variant='contained' className={classes.loginbtn}>CONTINUE</Button>
+                       <TextField onChange={(e)=>inputChange(e)} name='firstname' label='Enter First Name'/>
+                       <TextField onChange={(e)=>inputChange(e)} name='lastname' label='Enter Last Name'/>
+                       <TextField onChange={(e)=>inputChange(e)} name='username' label='Enter User Name'/>
+                       <TextField onChange={(e)=>inputChange(e)} name='email' label='Enter Email'/>
+                       <TextField onChange={(e)=>inputChange(e)} name='password' label='Enter Password'/>
+                       <TextField onChange={(e)=>inputChange(e)} name='phone' label='Enter Mobile number'/>
+                       <Button variant='contained' onClick={()=>signup()} className={classes.loginbtn}>Sign Up</Button>
                       </Box>
                     }
                 </Box>

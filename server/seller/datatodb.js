@@ -1,5 +1,5 @@
-import {products} from './products/product.js'
-import product from './model/productSchema.js'
+import {products} from '../products/product.js'
+import product from '../model/productSchema.js'
 
 
 const data= async()=>{

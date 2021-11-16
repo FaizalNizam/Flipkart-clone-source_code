@@ -1,7 +1,6 @@
 import React from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { products} from '../../constants/constants';
 import {makeStyles,Box, Typography,Divider} from '@material-ui/core'
 
 const useStyle=makeStyles({
@@ -69,7 +68,7 @@ function Slide(props) {
          >
 
            {
-               products.map((data)=>
+               props.products.map((data)=>
                   <Box textAlign="center">
                     <img src={data.url} alt="oops" className={classes.image} />
                     <Typography className={classes.text} style={{fontWeight:600,color:'#212121'}}>{data.title.shortTitle}</Typography>
