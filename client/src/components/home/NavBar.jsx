@@ -7,7 +7,7 @@ const useStyle=makeStyles({
     container:{
         display:'flex',
         marginTop:60,
-       
+        overflowX:'overlay', 
     },
     box:{
         textAlign:'center',

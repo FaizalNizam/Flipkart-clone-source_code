@@ -125,7 +125,7 @@ function Login({open,setOpen,setAccount}) {
       let response= await callSignup(userSignup)
       if(!response) return
       handleClose()
-      setAccount(userSignup.username)
+      setAccount(userSignup.username)//for replacing loginbutton with username after signup
     }
 
     //onclick function for login button
@@ -133,15 +133,16 @@ function Login({open,setOpen,setAccount}) {
         let response=await callLogin(userLogin)
         if(!response) return
         handleClose()
-        setAccount(userLogin.username)
+        setAccount(userLogin.username)//for replacing loginbutton with username after login
     }
 
-    //set signup object for api call (object resides in state variable)
+    //setup signup object for api call (object resides in state variable)
     const inputChange=(e)=>{
         setUserSignup({...userSignup,[e.target.name]:e.target.value})
     }
 
-    //set login object for api call (object resides in state variable)
+    //setup login object for api call (object resides in state variable)
+    //setup login object for api call (object resides in state variable)
     const valueChange=(e)=>{
         setUserLogin({...userLogin,[e.target.name]:e.target.value})
     }

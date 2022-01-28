@@ -7,6 +7,7 @@ import Home from './components/home/Home'
 import CreditFooter from './components/creditFooter/CreditFooter'
 import TemplateProvider from './templates/TemplateProvider'
 import ContextProvider from './context/contextProvider'
+import DetailView from './components/itemDetail/DetailView'
 
 function App() {
   return (
@@ -23,9 +24,11 @@ function App() {
         <Route exact path='/cart' >
           <Header/>
           <Cart/>
-          <CreditFooter/>
         </Route> 
-   
+
+        <Header/>
+        <Route exact path='/product/:id' component={DetailView}/>
+        
      </Router>
     </ContextProvider>
    </TemplateProvider>

@@ -22,9 +22,11 @@ const port=8000
 const username=process.env.DB_username
 const password=process.env.DB_password
 
+//establishing connection to mongoDB
 connection(username,password)
 
+//listening to port 8000
 app.listen(port,()=>console.log(`server is running successfully on port ${port}`))
 
-//data to DB
+//sellers data to database
 data() 

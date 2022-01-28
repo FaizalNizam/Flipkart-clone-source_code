@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React from 'react'
 import {ImageURL} from '../../constants/constants'
 import {makeStyles} from'@material-ui/core'
@@ -16,14 +16,15 @@ function MidSection() {
     const classes=useStyle()
 
     return (
-        <Box className={classes.component}>
+        <Grid container lg={12} sm={12} md={12} xs={12} className={classes.component}>
             {
                 ImageURL.map((data)=>
-                  
-                      <img src={data} alt="oops" style={{width:'33%'}} />
+                  <Grid item lg={4} md={4} sm={12} xs={12} >
+                      <img src={data} alt="oops" style={{width:'100%'}} />
+                  </Grid>    
                 )
             }
-        </Box>
+        </Grid>
     )
 }
 

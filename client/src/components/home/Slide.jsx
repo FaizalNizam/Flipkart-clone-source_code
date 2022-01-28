@@ -2,17 +2,12 @@ import React from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {makeStyles,Box, Typography,Divider} from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 const useStyle=makeStyles({
-    image:{
-        height:120,
-        marginTop:20
-        
-    },
     component:{
         backgroundColor:'#ffffff',
         marginTop:-10,
-
     },
     deal:{
         paddingTop:5,
@@ -20,9 +15,14 @@ const useStyle=makeStyles({
         paddingLeft:10,
         fontWeight:'bold'
     },
+    image:{
+      height:120,
+      marginTop:20
+      
+    },
     text:{
       fontSize:14,
-      marginTop:5
+      marginTop:5,
     }
 })
 
@@ -49,37 +49,42 @@ function Slide(props) {
 
     return (
       <Box className={classes.component}>
-       <Typography className={classes.deal}>{props.title}</Typography> 
-       <Divider/>  
-       <Carousel 
-         responsive={responsive}
-         infinite={true}
-         draggable={false}
-         swipeable={false}
-         centerMode={true}
-         autoPlay={false}
-         autoPlaySpeed={1000}
-         keyBoardControl={true}
-         showDots={false}
-         removeArrowOnDeviceType={["mobile","tablet"]}
-         dotListClass="custom-dot-list-style"
-         itemClass="carousel-item-padding-40-px"
-         containerClass="carousel-container"
+         <Typography className={classes.deal}>{props.title}</Typography> 
+
+         <Divider/>  
+
+         <Carousel 
+            responsive={responsive}
+            infinite={true}
+            draggable={false}
+            swipeable={false}
+            centerMode={true}
+            autoPlay={true}
+            autoPlaySpeed={10000}
+            keyBoardControl={true}
+            showDots={false}
+            //removeArrowOnDeviceType={["mobile","tablet"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+            containerClass="carousel-container"
          >
 
-           {
-               props.products.map((data)=>
-                  <Box textAlign="center">
-                    <img src={data.url} alt="oops" className={classes.image} />
-                    <Typography className={classes.text} style={{fontWeight:600,color:'#212121'}}>{data.title.shortTitle}</Typography>
-                    <Typography className={classes.text} style={{color:'green'}}>{data.discount}</Typography>
-                    <Typography className={classes.text} style={{color:'#212121',opacity:'.6'}}>{data.tagline}</Typography>
-                  </Box>  
-               )
+            {
+                props.products.map((data)=>
+                  <Link to={`product/${data.id}`}>
+                    <Box textAlign="center">
+                      <img src={data.url} alt="oops" className={classes.image} />
+                      <Typography className={classes.text} style={{fontWeight:600,color:'#212121'}}>{data.title.shortTitle}</Typography>
+                      <Typography className={classes.text} style={{color:'green'}}>{data.discount}</Typography>
+                      <Typography className={classes.text} style={{color:'#212121',opacity:'.6'}}>{data.tagline}</Typography>
+                    </Box>  
+                  </Link>
+                )
            }
      
        </Carousel>
-      </Box>   
+
+      </Box>  
     )
 }
 

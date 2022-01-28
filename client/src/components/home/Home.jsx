@@ -11,28 +11,36 @@ import Slide from './Slide'
 import MidSection from './MidSection';
 
 
-const useStyle=makeStyles({
-    component:{
+const useStyle=makeStyles(theme=>({
+    component1:{
         padding:10,
         backgroundColor:'#f1f3f6'
     },
     component2:{
         padding:10,
         backgroundColor:'#f1f3f6',
-        display:'flex'
-
+        display:'flex',
     },
     component3:{
         padding:10,
         backgroundColor:'#f1f3f6',
 
     },
+    sub:{
+      width:'80%',
+      [theme.breakpoints.down('md')]:{
+        width:'100%'
+      }
+    },
     wrapper:{
         backgroundColor:'white',
         width:'20%',
         marginTop:-10,
         height:292,
-        marginLeft:3
+        marginLeft:3,
+        [theme.breakpoints.down('md')]:{
+          display:'none'
+        }
     },
     ad:{
         height:282,
@@ -40,32 +48,33 @@ const useStyle=makeStyles({
         padding:5
 
     }
-
-
-})
+}))
 
 function Home() {
 
     const classes=useStyle()
 
+    //useselector hook for retrieving getProducts data from redux store
     const getProducts = useSelector(state => state.getProducts)
     const {products}=getProducts
 
+    //usedispatch hook for calling the products API from server using axios ie retrieving data from server to store
     const dispatch=useDispatch()
     useEffect(() => {
       dispatch(getProduct())
-      
+
     }, [dispatch])
 
     return (
         <div>
             <NavBar/>
-            <Box className={classes.component}>
+
+            <Box className={classes.component1}>
               <Banner/>
             </Box>
 
             <Box className={classes.component2}>
-                <Box style={{width:'80%'}}>
+                <Box className={classes.sub}>
                   <Slide title='Deal of the day' products={products}/>
                 </Box>
                 <Box className={classes.wrapper}>

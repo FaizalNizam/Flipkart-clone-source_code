@@ -3,13 +3,16 @@ import Carousel from 'react-material-ui-carousel'
 import {makeStyles} from '@material-ui/core'
 import {bannerData} from '../../constants/constants'
 
-const useStyle=makeStyles({
+const useStyle=makeStyles(theme=>({
     img:{
         width:'100%',
-        height:300
+        height:300,
+        [theme.breakpoints.down('sm')]:{
+            objectFit:'cover',
+            height:180
+        }
     }
-
-})
+}))
 
 function Banner() {
      
